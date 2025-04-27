@@ -1,0 +1,712 @@
+/* スタイルシート - ONE PIECEキャラのスケジュール相談室 */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap');
+
+:root {
+    --bg-color: #0a0a0f;
+    --primary-neon: #ff4500;
+    /* Luffy Orange */
+    --secondary-neon: #1e90ff;
+    /* Sea Blue */
+    --text-color: #e0e0e0;
+    --text-muted: #a0a0a0;
+    /* Lighter muted */
+    --border-color: #444450;
+    /* Darker border */
+    --container-bg: #1a1a23;
+    /* Dark container */
+    --input-bg: #2a2a33;
+    /* Slightly lighter input */
+    --button-bg-start: #ff6347;
+    /* Tomato */
+    --button-bg-end: #d2691e;
+    /* Chocolate */
+    --button-hover-bg-start: #ff7f50;
+    /* Coral */
+    --button-hover-bg-end: #e67e22;
+    /* Carrot */
+    --error-bg: #5a1d1d;
+    --error-text: #ff7f7f;
+    --luffy-msg-bg: rgba(255, 69, 0, 0.15);
+    /* Luffy message background */
+    --user-msg-bg: rgba(30, 144, 255, 0.15);
+    /* User message background */
+
+    /* キャラクターテーマカラー */
+    --luffy-primary: #ff4500;  /* オレンジ */
+    --luffy-secondary: #ffcc00; /* 黄色 */
+    --zoro-primary: #006400;   /* 濃い緑 */
+    --zoro-secondary: #228b22; /* 森林緑 */
+    --nami-primary: #ff6b6b;   /* ピンク */
+    --nami-secondary: #ff9900; /* オレンジ */
+}
+
+body {
+    font-family: 'Noto Sans JP', 'Roboto Mono', monospace;
+    line-height: 1.7;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Align top */
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 20px auto;
+    background: var(--container-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255, 69, 0, 0.3);
+    border: 1px solid var(--primary-neon);
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    /* Keep Orbitron for title */
+    text-align: center;
+    margin-bottom: 1.2em;
+    /* Reduced margin */
+    font-size: 2.2em;
+    /* Slightly smaller */
+    color: var(--primary-neon);
+    text-shadow: 0 0 5px var(--primary-neon), 0 0 10px var(--primary-neon);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    /* Reduced margin */
+    font-weight: 700;
+    color: var(--secondary-neon);
+    font-size: 1.0em;
+    /* Smaller label */
+    text-shadow: 0 0 3px var(--secondary-neon);
+}
+
+textarea,
+input[type="text"] {
+    width: calc(100% - 22px);
+    /* Adjusted for padding */
+    padding: 10px;
+    /* Reduced padding */
+    margin-bottom: 15px;
+    /* Reduced margin */
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: 'Noto Sans JP', 'Roboto Mono', monospace;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+textarea:focus,
+input[type="text"]:focus {
+    border-color: var(--primary-neon);
+    outline: 0;
+    box-shadow: 0 0 8px rgba(255, 69, 0, 0.5), inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+textarea#userScheduleInput {
+    min-height: 50px;
+    /* Reduced height */
+}
+
+textarea#chatInput {
+    min-height: 40px;
+    /* Reduced height */
+    margin-bottom: 10px;
+    /* Reduced margin */
+}
+
+button {
+    background: linear-gradient(145deg, var(--button-bg-start), var(--button-bg-end));
+    color: white;
+    padding: 12px 22px;
+    /* Adjusted padding */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    /* Adjusted size */
+    font-weight: 700;
+    font-family: 'Orbitron', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 0 6px var(--button-bg-start);
+    display: inline-block;
+    margin: 10px 5px 0 0;
+    /* Adjusted margin */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+button:hover:not(:disabled) {
+    background: linear-gradient(145deg, var(--button-hover-bg-start), var(--button-hover-bg-end));
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5), 0 0 12px var(--button-hover-bg-start);
+    transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 4px var(--button-hover-bg-start);
+}
+
+button:disabled {
+    background: #555;
+    cursor: not-allowed;
+    opacity: 0.6;
+    box-shadow: none;
+    transform: none;
+}
+
+#loading {
+    display: none;
+    text-align: center;
+    margin: 25px 0;
+    /* Adjusted margin */
+    font-size: 1.2em;
+    /* Adjusted size */
+    color: var(--primary-neon);
+    font-weight: 700;
+    text-shadow: 0 0 5px var(--primary-neon);
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+#errorDisplay {
+    color: var(--error-text);
+    font-weight: bold;
+    margin-top: 15px;
+    /* Adjusted margin */
+    padding: 10px 15px;
+    /* Add padding */
+    border-radius: 8px;
+    text-align: center;
+    display: none;
+    background-color: var(--error-bg);
+}
+
+#errorDisplay:not(:empty) {
+    display: block;
+}
+
+#scheduleSection,
+#chatSection {
+    margin-top: 25px;
+    /* Adjusted margin */
+    padding: 15px;
+    /* Adjusted padding */
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#scheduleOutput {
+    white-space: pre-wrap;
+    /* Keep whitespace */
+    margin-bottom: 20px;
+    /* Adjusted margin */
+    line-height: 1.6;
+    /* Improved line height */
+}
+
+#chatHistory {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding-right: 5px;
+    /* Space for scrollbar */
+}
+
+.chat-message {
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.user-message {
+    background-color: var(--user-msg-bg);
+    border: 1px solid var(--secondary-neon);
+    color: var(--text-color);
+    margin-left: auto;
+    /* Align right */
+    text-align: left;
+    /* Keep text left aligned */
+    border-bottom-right-radius: 2px;
+    /* Bubble effect */
+}
+
+.character-message {
+    background-color: var(--luffy-msg-bg);
+    border: 1px solid var(--primary-neon);
+    color: var(--text-color);
+    margin-right: auto;
+    /* Align left */
+    border-bottom-left-radius: 2px;
+    /* Bubble effect */
+}
+
+/* キャラクター毎のメッセージスタイル */
+body.luffy-mode .character-message {
+    background-color: rgba(255, 69, 0, 0.15);
+    border-color: var(--luffy-primary);
+}
+
+body.zoro-mode .character-message {
+    background-color: rgba(0, 100, 0, 0.15);
+    border-color: var(--zoro-primary);
+}
+
+body.nami-mode .character-message {
+    background-color: rgba(255, 107, 107, 0.15);
+    border-color: var(--nami-primary);
+}
+
+.message-sender {
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-bottom: 3px;
+    display: block;
+}
+
+#chatControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Space between input and button */
+}
+
+#chatInput {
+    flex-grow: 1;
+    margin-bottom: 0;
+    /* Remove bottom margin */
+}
+
+#sendChatButton {
+    margin-top: 0;
+    /* Remove top margin */
+    margin-bottom: 0;
+    /* Remove bottom margin */
+    height: 40px;
+    /* Match input height approx */
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 40px;
+}
+
+/* キャラクター選択部分のスタイル */
+#characterSelection {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#characterSelection h2 {
+    margin-bottom: 20px;
+    color: var(--text-color);
+    font-size: 1.5em;
+}
+
+.character-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.character-option {
+    width: 150px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--input-bg);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.character-option img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.character-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+}
+
+.luffy-avatar {
+    background: linear-gradient(145deg, var(--luffy-primary), var(--luffy-secondary));
+}
+
+.zoro-avatar {
+    background: linear-gradient(145deg, var(--zoro-primary), var(--zoro-secondary));
+}
+
+.nami-avatar {
+    background: linear-gradient(145deg, var(--nami-primary), var(--nami-secondary));
+}
+
+.character-option span {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.character-description {
+    font-size: 0.8em;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* キャラクター選択状態 */
+.character-option[data-character="luffy"] {
+    border-color: var(--luffy-primary);
+}
+
+.character-option[data-character="zoro"] {
+    border-color: var(--zoro-primary);
+}
+
+.character-option[data-character="nami"] {
+    border-color: var(--nami-primary);
+}
+
+.character-option.selected {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.character-option[data-character="luffy"].selected {
+    background-color: rgba(255, 69, 0, 0.2);
+    border-color: var(--luffy-primary);
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
+}
+
+.character-option[data-character="zoro"].selected {
+    background-color: rgba(0, 100, 0, 0.2);
+    border-color: var(--zoro-primary);
+    box-shadow: 0 0 15px rgba(0, 100, 0, 0.5);
+}
+
+.character-option[data-character="nami"].selected {
+    background-color: rgba(255, 107, 107, 0.2);
+    border-color: var(--nami-primary);
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+}
+
+/* ルフィモード */
+body.luffy-mode .container {
+    border-color: var(--luffy-primary);
+    box-shadow: 0 0 30px rgba(255, 69, 0, 0.3);
+}
+
+body.luffy-mode h1,
+body.luffy-mode button {
+    color: var(--luffy-secondary);
+}
+
+/* ゾロモード */
+body.zoro-mode .container {
+    border-color: var(--zoro-primary);
+    box-shadow: 0 0 30px rgba(0, 100, 0, 0.3);
+}
+
+body.zoro-mode h1,
+body.zoro-mode button {
+    color: var(--zoro-secondary);
+}
+
+/* ナミモード */
+body.nami-mode .container {
+    border-color: var(--nami-primary);
+    box-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+}
+
+body.nami-mode h1,
+body.nami-mode button {
+    color: var(--nami-secondary);
+}
+
+#scheduleForm {
+    margin-top: 20px;
+}
+
+/* 動画表示用スタイル */
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.video-container video {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.skip-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: 2px solid white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.skip-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* アニメーション */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-out {
+    animation: fadeOut 0.5s forwards;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s forwards;
+}
+
+/* 「メッセージを受け取る」ボタン */
+.message-button-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.receive-message-btn {
+    background-color: var(--primary-neon);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+.receive-message-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.2);
+    background-color: var(--secondary-neon);
+}
+
+.receive-message-btn:active {
+    transform: translateY(1px);
+}
+
+/* モーダル */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: var(--container-bg);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.3s;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: var(--primary-neon);
+}
+
+.finish-video-container {
+    width: 100%;
+    margin: 15px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+    text-align: center;
+    margin-top: 10px;
+    color: var(--primary-neon);
+    font-size: 1.5em;
+}
+
+/* ビデオローディング表示 */
+.video-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.video-loading p {
+    margin-top: 15px;
+    color: var(--primary-neon);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-top: 5px solid var(--primary-neon);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* キャラクター別のローディングスピナーカラー */
+.luffy-mode .loading-spinner {
+    border-top-color: var(--luffy-primary);
+}
+
+.zoro-mode .loading-spinner {
+    border-top-color: var(--zoro-primary);
+}
+
+.nami-mode .loading-spinner {
+    border-top-color: var(--nami-primary);
+}
+
+/* スケジュールテーブル */
+.schedule-table-wrapper {
+    margin: 20px 0 30px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-table-wrapper h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--primary-neon);
+    font-size: 1.2em;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.schedule-table thead {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.schedule-table th {
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: bold;
+    color: var(--primary-neon);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.schedule-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.schedule-table tbody tr {
+    transition: background-color 0.2s;
+}
+
+.schedule-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.schedule-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* 時間列のスタイル */
+.schedule-table td.time-column {
+    white-space: nowrap;
+    font-family: 'Roboto Mono', monospace;
+    color: var(--secondary-neon);
+}
+
+/* 所要時間列のスタイル */
+.schedule-table td.duration-column {
+    text-align: center;
+    font-weight: bold;
+}

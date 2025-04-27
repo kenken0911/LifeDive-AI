@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONE PIECEキャラのスケジュール相談室</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🏴‍☠️ LifeDive-AI ☠️</h1>
+
+        <!-- 動画セクション（初期表示用） -->
+        <div id="introVideo" class="video-container">
+            <video id="pirateVideo" controls width="100%" autoplay>
+                <source src="./20250426_1316_Epic Pirate Adventure_simple_compose_01jsr4ykgqexba5st5a1m23fny.mp4" type="video/mp4">
+                お使いのブラウザは動画再生に対応していません。
+            </video>
+            <button id="skipIntroButton" class="skip-button">スキップ</button>
+        </div>
+
+        <!-- キャラクター選択部分 -->
+        <div id="characterSelection" style="display: none;">
+            <h2>誰に相談する？</h2>
+            <div class="character-options">
+                <div class="character-option" data-character="luffy">
+                    <div class="character-avatar luffy-avatar">ル</div>
+                    <span>ルフィ</span>
+                    <div class="character-description">元気でポジティブ！冒険大好き！</div>
+                </div>
+                <div class="character-option" data-character="zoro">
+                    <div class="character-avatar zoro-avatar">ゾ</div>
+                    <span>ゾロ</span>
+                    <div class="character-description">真面目で修行好き。ストイックなスケジュール</div>
+                </div>
+                <div class="character-option" data-character="nami">
+                    <div class="character-avatar nami-avatar">ナ</div>
+                    <span>ナミ</span>
+                    <div class="character-description">効率重視で計画的。財布にも優しいプラン</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="scheduleForm">
+            <label for="userScheduleInput">
+                <span id="characterPrompt">おめぇ、明日なにするんだ？ なんかやりてぇこととか、今の気分とか教えろ！</span>
+            </label>
+            <textarea id="userScheduleInput" rows="3" placeholder="例：明日は大事なプレゼンがあるんだ！ ちょっと緊張してる。午後は友達と会う予定。"></textarea>
+
+            <button id="getScheduleButton">
+                <span id="buttonText">よし、ルフィ！明日の冒険を決めてくれ！</span>
+            </button>
+        </div>
+
+        <div id="loading">考え中... 🤔</div>
+        <div id="errorDisplay"></div>
+
+        <div id="scheduleSection" class="section" style="display: none;">
+            <h2><span id="characterNameSchedule">キャラクター</span>のスケジュール提案</h2>
+            <pre id="scheduleOutput"></pre>
+            
+            <!-- スケジュールテーブル表示エリア -->
+            <div id="scheduleTableContainer" class="schedule-table-wrapper">
+                <h3>スケジュール詳細</h3>
+                <table id="scheduleTable" class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>時間</th>
+                            <th>活動内容</th>
+                            <th>所要時間</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- JavaScriptで動的に行を追加 -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="scheduleChart"></canvas>
+            </div>
+        </div>
+
+        <div id="chatSection" class="section" style="display: none;">
+            <h2><span id="chatTitle">💬 ルフィと話すぞ！</span></h2>
+            <div id="chatHistory">
+            </div>
+            <div id="chatControls">
+                <textarea id="chatInput" rows="1" placeholder="メッセージを送る..."></textarea>
+                <button id="sendChatButton">→</button>
+            </div>
+            
+            <!-- 「メッセージを受け取る」ボタン -->
+            <div class="message-button-container">
+                <button id="receiveMessageButton" class="receive-message-btn">メッセージを受け取る 📬</button>
+            </div>
+        </div>
+        
+        <!-- 完了動画表示用のモーダル -->
+        <div id="finishVideoModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3>特別なメッセージが届きました！</h3>
+                
+                <!-- ローディング表示 -->
+                <div id="videoLoading" class="video-loading">
+                    <div class="loading-spinner"></div>
+                    <p>メッセージを受信中...</p>
+                </div>
+                
+                <div class="finish-video-container">
+                    <video id="finishVideo" controls width="100%">
+                        <source src="" type="video/mp4" id="finishVideoSource">
+                        お使いのブラウザは動画再生に対応していません。
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
